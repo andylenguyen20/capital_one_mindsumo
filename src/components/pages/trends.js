@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
 import Chart from '../../components/graphComponents/Chart';
+
+/*
+** PURPOSE: This file graphs three trends that I found interesting from the airbnb data
+** METHODOLOGY: I used multiple vba scripts to gather review scores, daily costs, and total number of reviews for each listing id.
+**  I then cross-referenced these listing ids to their respective neighborhoods (using vba scripts). From this, I generated three data sets
+**  which will appear on the three graphs. I graphed these datasets using a Chart library from an npm package.
+*/
+
 class Trends extends Component {
 	constructor(props){
     super(props);
@@ -12,7 +20,7 @@ class Trends extends Component {
   }
   getChartData(){
     this.setState({
-      chartData:{
+      averageReviewScoreData:{
         labels: ['Bayview', 'Bernal Heights', 'Castro/Upper Market', 'Chinatown', 'Crocker Amazon',
         'Diamond Heights', 'Downtown/Civic Center','Excelsior','Financial District','Glen Park', 'Golden Gate Park',
         'Haight Ashbury', 'Inner Richmond', 'Inner Sunset', 'Lakeshore', 'Marina', 'Mission', 'Nob Hill', 'Noe Valley', 
@@ -21,7 +29,6 @@ class Trends extends Component {
         'Twin Peaks', 'Visitacion Valley', 'West of Twin Peaks','Western Addition'],
         datasets:[
           {
-            label: 'average_review_score',
             data:[
               91.0106382978723,96.1515151515152,96.1553884711779,93.16,91.2173913043478,97,89.656836461126,92.3023255813954,
               93.47,96.0144927536232,87.75,94.0441640378549,94.3532110091743,94.9354838709677,92.4117647058823,95.1702127659574,
@@ -33,7 +40,7 @@ class Trends extends Component {
           },
         ]
       },
-      chartData2:{
+      averageDailyCostData:{
         labels: ['Bayview', 'Bernal Heights', 'Castro/Upper Market', 'Chinatown', 'Crocker Amazon',
         'Diamond Heights', 'Downtown/Civic Center','Excelsior','Financial District','Glen Park', 'Golden Gate Park',
         'Haight Ashbury', 'Inner Richmond', 'Inner Sunset', 'Lakeshore', 'Marina', 'Mission', 'Nob Hill', 'Noe Valley', 
@@ -42,7 +49,6 @@ class Trends extends Component {
         'Twin Peaks', 'Visitacion Valley', 'West of Twin Peaks','Western Addition'],
         datasets:[
           {
-            label: 'average_cost',
             data:[
               106.329787234043,182.396694214876,230.5664160401,181.06,116.347826086957,191.529411764706,164.699731903485,112.248062015504,
               227.14,209.942028985507,235.875,215.570977917981,198.697247706422,200.064516129032,116.617647058824,284.434042553191,192.648456057007,
@@ -54,7 +60,7 @@ class Trends extends Component {
           },
         ]
       },
-      chartData3:{
+      totalReviewsData:{
         labels: ['Bayview', 'Bernal Heights', 'Castro/Upper Market', 'Chinatown', 'Crocker Amazon',
         'Diamond Heights', 'Downtown/Civic Center','Excelsior','Financial District','Glen Park', 'Golden Gate Park',
         'Haight Ashbury', 'Inner Richmond', 'Inner Sunset', 'Lakeshore', 'Marina', 'Mission', 'Nob Hill', 'Noe Valley', 
@@ -63,7 +69,6 @@ class Trends extends Component {
         'Twin Peaks', 'Visitacion Valley', 'West of Twin Peaks','Western Addition'],
         datasets:[
           {
-            label: 'total_reviews',
             data:[
               4074, 12428, 16812, 575, 1103, 452, 8742, 3991, 2891, 2379, 292, 12154, 7230, 4471, 592,
               6178, 28392, 5303, 11359, 4132, 3073, 5083, 6422, 8495, 4782, 3072, 9370, 158, 1323,
@@ -83,14 +88,14 @@ class Trends extends Component {
       		Trends Page Contents
       	</h1>
       	<p>
-      		On this page, I'm going to have three graphs of cool trends that are taken from these documents. These trends will include:
-      		1) Amount of Airbnb locations in each neighborhood (pie chart)
-      		2) Average cost of Airbnb locations in each neighborhood (bar graph)
-      		3) Overall quality of Airbnb reviews in each neighborhood (bar graph)
+      		On this page, I've graphed three interesting trends that I've personally preprocessed from the given Airbnb data. These trends include:
+      		1) Average review score of the listings in each neighborhood (pie chart)
+      		2) Average cost of listings in each neighborhood (bar graph)
+      		3) Total number of reviews of listings in each neighborhood (bar graph)
       	</p>
-      	<Chart chartData = {this.state.chartData} purpose = 'Average review score'/>
-      	<Chart chartData = {this.state.chartData2} purpose = 'Average daily cost ($)'/>
-      	<Chart chartData = {this.state.chartData3} purpose = 'Total reviews'/>
+      	<Chart chartData = {this.state.averageReviewScoreData} purpose = 'Average review score'/>
+      	<Chart chartData = {this.state.averageDailyCostData} purpose = 'Average daily cost ($)'/>
+      	<Chart chartData = {this.state.totalReviewsData} purpose = 'Total reviews'/>
       </div>
     );
   }

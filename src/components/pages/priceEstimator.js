@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import data from '../../resources/listings.json'
 
+/*
+** NOTE: Very similar implementation to bookingsOptimizer.js. Read comments on that file for more detailed comments.
+** PURPOSE: This file estimates the weekly revenue given a latitude and longitude input.
+** METHODOLOGY: I used an npm implementation of a kd-tree that allows me to perform a nearest neighbors search
+**  of k neighbors to the latitude-longitude input. From these k neighbors, I take the average of their weekly price
+**  and return that value.
+*/
+
 const numNeighbors = 10;
 var tree = initializeTree();
 
@@ -17,7 +25,7 @@ class PriceEstimator extends React.Component {
 	handleClick(){
 		var latitude = this.state.latValue;
 		var longitude = this.state.longValue;
-		var nearestCost = getNearest(tree, {lat:{latitude},long:{longitude}}, numNeighbors);
+		var nearestCost = getNearest(tree, {lat:latitude,long:longitude}, numNeighbors);
     	console.log(nearestCost);
 		this.setState({estimation:nearestCost});
 	}
@@ -43,11 +51,11 @@ class PriceEstimator extends React.Component {
       	</p>
       	<label htmlFor="latitudeInput">Latitude</label>
       	<input type = "text" id = "latitudeInput" onChange={e => this.updateLatitudeValue(e.target.value)}/>
-  		<label htmlFor="longitudeInput">Longitude</label>
-  		<input type = "text" id = "longitudeInput" onChange={e => this.updateLongitudeValue(e.target.value)}/>
-  		<button onClick = {this.handleClick}>Estimate!</button>
-  		<label htmlFor="priceEstimationResult">Estimated Weekly Revenue ($) </label>
-  		<input id = "priceEstimationResult" value = {this.state.estimation}/>
+  		  <label htmlFor="longitudeInput">Longitude</label>
+  		  <input type = "text" id = "longitudeInput" onChange={e => this.updateLongitudeValue(e.target.value)}/>
+  		  <button onClick = {this.handleClick}>Estimate!</button>
+  		  <label htmlFor="priceEstimationResult">Estimated Weekly Revenue ($) </label>
+  		  <input id = "priceEstimationResult" value = {this.state.estimation}/>
       </div>
     );
   }
@@ -64,17 +72,13 @@ function getNearest(tree, coords, number){
 }
 
 function initializeTree(){
-    //kd.tree library taken from npm
     var kdt = require('kd.tree');
-    //function that our kdtree uses to determine distances
     var distance = function(a,b){
-    	console.log(a);
-    	//console.log(Math.sqrt(Math.pow(a.lat - b.lat, 2) + Math.pow(a.long-b.long,2)));
     	return Math.sqrt(Math.pow(a.lat - b.lat, 2) + Math.pow(a.long-b.long,2));
     }
     var coords = [];
     for(var i = 0; i < data.length; i++){
-      //determine weekly price of each listing
+      //determine valid weekly price of each listing
       var weeklyPrice = data[i]["weekly_price"].replace(/[^0-9\.-]+/g,"");
       var dailyPrice = data[i]["price"].replace(/[^0-9\.-]+/g,"");
       var validWeeklyPrice;
@@ -85,14 +89,12 @@ function initializeTree(){
       }
       var latitude = data[i]["latitude"];
       var longitude = data[i]["longitude"];
-      //push all this information onto our coords array
       coords.push(
-      { price: validWeeklyPrice,
-        loc:{lat:latitude,long:longitude}
+      { 
+        attributes:{lat:latitude,long:longitude,price: validWeeklyPrice}
       });
     }
-    coords = coords.map(function(v){return v.loc;});
-    console.log(coords);
+    coords = coords.map(function(v){return v.attributes;});
     return kdt.createKdTree(coords,distance,['lat','long']);
 }
 
