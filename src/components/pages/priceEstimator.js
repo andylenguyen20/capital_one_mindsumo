@@ -46,14 +46,13 @@ class PriceEstimator extends React.Component {
       		Price Estimation Tool
       	</h1>
       	<p>
-      		On this page I'm going to have a tool that calls a function. Here is what it will do:
-      		Given the geo-location (latitude and longitude) of a new property, estimate the weekly average income the homeowner can make with Airbnb.
+      		Type in a geo-location (latitude and longitude) of a new property to find out the weekly average income you can make with Airbnb.
       	</p>
       	<label htmlFor="latitudeInput">Latitude</label>
       	<input type = "text" id = "latitudeInput" onChange={e => this.updateLatitudeValue(e.target.value)}/>
   		  <label htmlFor="longitudeInput">Longitude</label>
   		  <input type = "text" id = "longitudeInput" onChange={e => this.updateLongitudeValue(e.target.value)}/>
-  		  <button onClick = {this.handleClick}>Estimate!</button>
+  		  <button onClick = {this.handleClick}>Estimate!</button> <br/>
   		  <label htmlFor="priceEstimationResult">Estimated Weekly Revenue ($) </label>
   		  <input id = "priceEstimationResult" value = {this.state.estimation}/>
       </div>

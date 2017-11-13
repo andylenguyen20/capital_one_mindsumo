@@ -47,7 +47,7 @@ class BookingsOptimizer extends Component {
     return (
       <div className = "container-fluid">
       	<h1>
-      		Bookings Optimization Page Contents
+      		Bookings Optimization Tool
       	</h1>
       	<p>
       		Type in a geo-location (latitude and longitude) of your property to find out the ideal price per night that will yield maximum bookings or revenue
@@ -56,7 +56,7 @@ class BookingsOptimizer extends Component {
   		  <input type = "text" id = "latitudeInput" onChange={e => this.updateLatitudeValue(e.target.value)}/>
   		  <label htmlFor="longitudeInput">Longitude</label>
   		  <input type = "text" id = "longitudeInput" onChange={e => this.updateLongitudeValue(e.target.value)}/>
-  		  <button onClick = {this.handleClick}>Estimate!</button>
+  		  <button onClick = {this.handleClick}>Estimate!</button> <br/>
         <label htmlFor="bookingResult">Ideal Price Per Night ($) </label>
   		  <input id = "bookingResult" value = {this.state.estimation}/>
       </div>

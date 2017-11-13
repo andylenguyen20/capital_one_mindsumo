@@ -85,13 +85,13 @@ class Trends extends Component {
     return (
       <div className = "container-fluid">
       	<h1>
-      		Trends Page Contents
+      		Trends
       	</h1>
       	<p>
       		On this page, I've graphed three interesting trends that I've personally preprocessed from the given Airbnb data. These trends include:
-      		1) Average review score of the listings in each neighborhood (pie chart)
-      		2) Average cost of listings in each neighborhood (bar graph)
-      		3) Total number of reviews of listings in each neighborhood (bar graph)
+      		1) Average review score of the listings in each neighborhood
+      		2) Average cost of listings in each neighborhood
+      		3) Total number of reviews of listings in each neighborhood
       	</p>
       	<Chart chartData = {this.state.averageReviewScoreData} purpose = 'Average review score'/>
       	<Chart chartData = {this.state.averageDailyCostData} purpose = 'Average daily cost ($)'/>
